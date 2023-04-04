@@ -36,6 +36,7 @@ export default {
         this.store.movies = res.data.results;
 
       });
+
     }
   },
 
