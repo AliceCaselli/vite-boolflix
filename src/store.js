@@ -4,15 +4,18 @@ export const store = reactive({
 
     movies: [],
 
+    series: [],
+
     searchWord: '',
 
-    APItest: 'https://api.themoviedb.org/3/search/movie?api_key=bd9455793911789f2178857713cc98a7&query=robot',
 
-    // APICall: 'https://api.themoviedb.org/3',
+    APICall: 'https://api.themoviedb.org/3',
 
-    // APIQuery: '',
+    APISearch: '',
 
-    // APIKey: 'bd9455793911789f2178857713cc98a7',
+    APIQuery: '&query=',
+
+    APIKey: '?api_key=bd9455793911789f2178857713cc98a7',
 
 
 });

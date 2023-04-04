@@ -12,24 +12,41 @@ export default {
     };
   },
 
+  components: {
+    AppHeader,
+    AppMain,
+  },
 
   created() {
-    axios.get(this.store.APItest).then((res) => {
+    axios.get(this.store.APICall).then((res) => {
       console.log(res.data.results);
       this.store.movies = res.data.results;
     });
   },
 
+  methods: {
 
-  components: {
-    AppHeader,
-    AppMain,
+    searchMovie() {
+      this.store.APISearch = '/search/movie';
+
+      console.log(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.APIQuery + this.store.searchWord)
+
+      axios.get(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.APIQuery + this.store.searchWord).then((res) => {
+        console.log(res.data.results);
+        this.store.movies = res.data.results;
+
+      });
+    }
   },
+
+
+
+
 };
 </script>
 
 <template>
-  <AppHeader></AppHeader>
+  <AppHeader @research="searchMovie()"></AppHeader>
   <AppMain></AppMain>
 </template>
 
