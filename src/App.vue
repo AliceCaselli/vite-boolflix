@@ -18,10 +18,19 @@ export default {
   },
 
   created() {
-    axios.get(this.store.APICall).then((res) => {
-      console.log(res.data.results);
+    // axios.get(this.store.APICall).then((res) => {
+    //   console.log(res.data.results);
+    //   this.store.movies = res.data.results;
+    // });
+
+    axios.get(this.store.APITrendMovie).then((res) => {
       this.store.movies = res.data.results;
     });
+
+    axios.get(this.store.APITrendTv).then((res) => {
+      this.store.series = res.data.results;
+    });
+
   },
 
   methods: {
@@ -30,6 +39,8 @@ export default {
       //unisco le ricerche
       this.searchMovie();
       this.searchSeries();
+      this.store.searchWord = '';
+
     },
 
     searchMovie() {
@@ -41,7 +52,6 @@ export default {
       axios.get(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.parameters).then((res) => {
         // console.log(res.data.results);
         this.store.movies = res.data.results;
-
       });
 
     },
@@ -60,7 +70,7 @@ export default {
       });
 
 
-    }
+    },
   },
 
 

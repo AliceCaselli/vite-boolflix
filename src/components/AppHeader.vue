@@ -17,19 +17,37 @@ export default {
 </script>
 
 <template>
-    <div id="search">
+    <div id="header-container">
+        <h1>BOOLFIX</h1>
+        <div id="search">
 
-        <input v-model="store.searchWord" type="text" placeholder="Cerca una serie o un film"
-            @keyup.enter="$emit('research')">
-        <button @click="$emit('research')">Cerca</button>
+            <input v-model="store.searchWord" type="text" placeholder="Cerca una serie o un film"
+                @keyup.enter="$emit('research')">
+            <button @click="$emit('research')">Cerca</button>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-#search {
-    text-align: center;
-    padding-top: 30px;
-    margin-bottom: 30px;
-    //test
+#header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px 0;
+    background-image: linear-gradient(to bottom right, red, #242424);
+
+    h1 {
+        text-shadow: 5px 5px 5px black;
+    }
+
+    #search {
+
+        input,
+        button {
+            padding: 5px;
+        }
+
+    }
 }
 </style>
