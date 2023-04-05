@@ -26,16 +26,39 @@ export default {
 
   methods: {
 
+    search() {
+      //unisco le ricerche
+      this.searchMovie();
+      this.searchSeries();
+    },
+
     searchMovie() {
       this.store.APISearch = '/search/movie';
 
-      console.log(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.APIQuery + this.store.searchWord)
+      // console.log(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.APIQuery + this.store.searchWord)
+      this.store.parameters = this.store.APIQuery + encodeURIComponent(this.store.searchWord);
 
-      axios.get(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.APIQuery + this.store.searchWord).then((res) => {
-        console.log(res.data.results);
+      axios.get(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.parameters).then((res) => {
+        // console.log(res.data.results);
         this.store.movies = res.data.results;
 
       });
+
+    },
+
+    searchSeries() {
+      this.store.APISearch = '/search/tv';
+
+      this.store.parameters = this.store.APIQuery + encodeURIComponent(this.store.searchWord);
+
+      axios.get(this.store.APICall + this.store.APISearch + this.store.APIKey + this.store.parameters).then((res) => {
+
+        console.log(res.data.results);
+
+        this.store.series = res.data.results;
+
+      });
+
 
     }
   },
@@ -47,7 +70,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader @research="searchMovie()"></AppHeader>
+  <AppHeader @research="search()"></AppHeader>
   <AppMain></AppMain>
 </template>
 

@@ -1,5 +1,4 @@
 <script>
-import { onMounted } from 'vue';
 
 export default {
 
@@ -11,21 +10,33 @@ export default {
     },
 
     props: {
-        movie: Object,
+        item: Object,
+        type: String,
+    },
+
+    computed: {
+
+        images() {
+            return 'https://image.tmdb.org/t/p/' + 'w342' + this.item.poster_path;
+        },
+
+        stars() {
+            return Math.ceil(this.item.vote_average / 10 * 5);
+        }
     },
 
     mounted() {
 
-        if (this.movie.original_language == 'en') {
+        if (this.item.original_language == 'en') {
             this.flag = 'gb';
-        } else if (this.movie.original_language == 'ja') {
+        } else if (this.item.original_language == 'ja') {
             this.flag = 'jp';
-        } else if (this.movie.original_language == 'ko') {
+        } else if (this.item.original_language == 'ko') {
             this.flag = 'kr';
-        } else if (this.movie.original_language == 'zh') {
+        } else if (this.item.original_language == 'zh') {
             this.flag = 'cn';
         } else {
-            this.flag = this.movie.original_language
+            this.flag = this.item.original_language
         }
     },
 };
@@ -33,17 +44,68 @@ export default {
 </script>
 
 <template>
-    <div class="card">
-        <div class="title">{{ movie.title }}</div>
-        <div class="original-title">{{ movie.original_title }}</div>
-        <div class="lang">{{ movie.original_language }}
-            <span :class="'fi fi-' + flag"></span>
+    <div class="card" :style="{ backgroundImage: 'url(' + images + ')' }">
+        <div class="text">
+
+            <div v-if="type == 'movie'" class="title">
+                <strong>Title:</strong> {{ item.title }}
+            </div>
+            <div v-else>
+                <strong></strong>Title: {{ item.name }}
+            </div>
+
+            <div v-if="type == 'movie'" class="original-title">{{ item.original_title }}</div>
+            <div v-else>{{ item.original_title }}</div>
+
+            <div class="lang">
+                {{ item.original_language }}
+
+                <span :class="'fi fi-' + flag"></span>
+            </div>
+
+            <div class="vote"><i v-for="number in stars" class="fa-solid fa-star"></i><i v-for="number in 5 - stars"
+                    class="fa-regular fa-star"></i>
+            </div>
+
+
         </div>
-        <div class="vote">{{ movie.vote_average }}</div>
-        <div class="image">
-            <img src="" alt="">
-        </div>
+
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.card {
+    width: 300px;
+
+    flex-shrink: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid white;
+    border-radius: 5px;
+
+    .text {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        gap: 10px;
+        background-color: black;
+        height: 100%;
+
+        display: none;
+
+        &:hover {
+            display: flex;
+            cursor: pointer;
+        }
+
+        .original-title {
+            color: gray;
+        }
+    }
+
+}
+</style>

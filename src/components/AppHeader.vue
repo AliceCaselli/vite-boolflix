@@ -29,6 +29,7 @@ export default {
 #search {
     text-align: center;
     padding-top: 30px;
+    margin-bottom: 30px;
     //test
 }
 </style>

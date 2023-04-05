@@ -16,6 +16,6 @@ export const store = reactive({
     APIQuery: '&query=',
 
     APIKey: '?api_key=bd9455793911789f2178857713cc98a7',
-
+    parameters: '',
 
 });
